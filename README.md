@@ -14,9 +14,10 @@ We use the following settings:
 
 https://stackoverflow.com/questions/35821184/implement-an-interactive-shell-over-ssh-in-python-using-paramiko
 
-import paramiko
-import re
 
+import paramiko
+
+import re
 
 class ShellHandler:
 
