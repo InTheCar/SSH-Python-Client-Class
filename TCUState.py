@@ -13,7 +13,7 @@ import logging
 
 
 
-def TCUState_config_create():
+def TCUState_config_create(config_file_name):
     TCUState_config = configparser.ConfigParser()
     TCUState_config['debug'] = {}
     TCUState_config['debug']['level'] = "critical"
@@ -37,9 +37,11 @@ def TCUState_config_create():
 	ERROR		Due to a more serious problem, the software has not been able to perform some function.
 	CRITICAL	A serious error, indicating that the program itself may be unable to continue running.
 	"""
-    with open('TCUState.ini', 'w') as configfile:
-        TCUState_config.write(configfile)
-
+    try:
+        with open(config_file_name, 'w') as configfile:
+            TCUState_config.write(configfile)
+    except:
+        print(str(errno))
 def TCUState_wait_for_TCU():
     dot_counter=0
     TCU_IP_ADDRESS=TCUState_config['TCU']['IP_ADDRESS']
@@ -87,7 +89,8 @@ TCUState_config_file = Path("TCUState.ini")
 if TCUState_config_file.is_file():
     pass
 else:  # create file
-    TCUState_config_create()
+    print(TCUState_config_file)
+    TCUState_config_create(TCUState_config_file)
 
 try:
     TCUState_config = configparser.ConfigParser()
